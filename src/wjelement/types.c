@@ -656,6 +656,21 @@ EXPORT double __WJEDouble(WJElement container, const char *path, WJEAction actio
 					}
 					break;
 
+				case WJR_TYPE_STRING:
+                                {
+                                   
+					char *s, *end;
+					double svalue;
+                                   
+					/* Does the string contain a number? */
+					s = skipspace(e->value.string);
+					svalue = strtod(s, &end);
+					if (end != s && (!(s = skipspace(end)) || !*s)) {
+						return svalue;
+					}
+                                }
+					/* fallthrough */
+
 				default:
 					return(value);
 			}
